@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apppokedex/pokedex.dart';
 
+// M  : model : api den veriyi çekme kısmı
+// V:  view : arayüz kısmı
+// C: controller:   api ve arayüz haberleşmesi
+
 class PokemonDetail extends StatelessWidget {
   Pokemon pokemon;
 

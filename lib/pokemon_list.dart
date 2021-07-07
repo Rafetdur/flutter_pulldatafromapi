@@ -74,43 +74,91 @@ Future <Pokedex> veri;
             }
           },);
        } else {
-        return FutureBuilder(future: veri,
-          builder: (context, AsyncSnapshot <Pokedex> gelenPokedex) {
-            if (gelenPokedex.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator(),);
-            } else if (gelenPokedex.connectionState == ConnectionState.done) {
-              /* return GridView.builder(
+        return OrientationBuilder( builder: (context, orientation) {
+          if (orientation==Orientation.portrait){
+           return FutureBuilder(future: veri,
+              // ignore: missing_return
+              builder: (context, AsyncSnapshot <Pokedex> gelenPokedex) {
+                if (gelenPokedex.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator(),);
+                } else if (gelenPokedex.connectionState == ConnectionState.done) {
+                  /* return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 itemBuilder: (contex, index) {
                   return Text(gelenPokedex.data.pokemon[index].name);
                 });*/
-              // ignore: missing_return
-              return GridView.extent(maxCrossAxisExtent: 2,children: gelenPokedex.data.pokemon.map((poke){
-                return InkWell(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>PokemonDetail(pokemon: poke,)));
+                  // ignore: missing_return
+                  return GridView.extent(maxCrossAxisExtent: 2,children: gelenPokedex.data.pokemon.map((poke){
+                    return InkWell(
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>PokemonDetail(pokemon: poke,)));
 
 
-                  },
-                  child: Hero(tag: poke.img,child: Card(
-                    elevation: 6,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 150,
-                          child: FadeInImage.assetNetwork(placeholder: "assets/loading.gif", image: poke.img, fit: BoxFit.contain,),
+                      },
+                      child: Hero(tag: poke.img,child: Card(
+                        elevation: 6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 150,
+                              child: FadeInImage.assetNetwork(placeholder: "assets/loading.gif", image: poke.img, fit: BoxFit.contain,),
+                            ),
+                            Text(poke.name,style: TextStyle(fontSize: 22,color: Colors.black, fontWeight: FontWeight.bold),)
+                          // ignore: missing_return
+                          ],
                         ),
-                        Text(poke.name,style: TextStyle(fontSize: 22,color: Colors.black, fontWeight: FontWeight.bold),)
-                      ],
-                    ),
-                  )),
-                );
-              }).toList(),);
-            }
-          // ignore: missing_return
-          },);
+                      ),
+                      ),
+                    );
+                  }).toList(),);
+                }
+                // ignore: missing_return
+              });
+          }else {
+            return FutureBuilder(builder: (context, AsyncSnapshot <Pokedex> gelenPokedex) {
+                if (gelenPokedex.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator(),);
+                } else if (gelenPokedex.connectionState == ConnectionState.done) {
+                  /* return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                itemBuilder: (contex, index) {
+                  return Text(gelenPokedex.data.pokemon[index].name);
+                });*/
+                  // ignore: missing_return
+                  return GridView.extent(maxCrossAxisExtent: 300,children: gelenPokedex.data.pokemon.map((poke){
+                    return InkWell(
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>PokemonDetail(pokemon: poke,)));
+
+
+                      },
+                      child: Hero(tag: poke.img,child: Card(
+                        elevation: 6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 150,
+                              child: FadeInImage.assetNetwork(placeholder: "assets/loading.gif", image: poke.img, fit: BoxFit.contain,),
+                            ),
+                            Text(poke.name,style: TextStyle(fontSize: 22,color: Colors.black, fontWeight: FontWeight.bold),)
+                          ],
+                        ),
+                      )),
+                    );
+                  }).toList(),);
+                }
+                // ignore: missing_return
+              },
+              future: veri,);
+
+          }
+        },
+
+        );
       }
     }
     ),
