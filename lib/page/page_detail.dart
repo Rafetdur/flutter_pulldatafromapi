@@ -6,8 +6,8 @@ import 'package:flutter_apppokedex/model/model.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class PageDetail extends StatefulWidget {
-  String tipId;
-  PageDetail(this.tipId);
+  Etkinlik etkinlik1;
+  PageDetail(this.etkinlik1);
 
   @override
   _PageDetailState createState() => _PageDetailState();
@@ -22,7 +22,7 @@ class _PageDetailState extends StateMVC<PageDetail> {
 
   @override
   void initState() {
-    _con.getEtkinlikInfoo(widget.tipId);
+    _con.getEtkinlikInfoo(widget.etkinlik1.etkinlikId.toString());
     super.initState();
   }
 
@@ -33,7 +33,7 @@ class _PageDetailState extends StateMVC<PageDetail> {
           title: Text("Etkinlikler"),
           centerTitle: true,
         ),
-        body: _con.etkinlik == null
+        body: _con.etkinlik2 == null
             ? Center(child: CircularProgressIndicator())
             :   SingleChildScrollView(
           padding: EdgeInsets.all(10),
@@ -41,9 +41,10 @@ class _PageDetailState extends StateMVC<PageDetail> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(_con.etkinlik.etkinlikTipAdi),
-              Text(_con.etkinlik.etkinlikId.toString()),
-              Text(_con.etkinlik.etkinlikPuani.toString()),
+              Image.network(_con.etkinlik2.etkinlikResmi ?? widget.etkinlik1.etkinlikResmi),
+              Text('Tip Adı: ' + _con.etkinlik2.etkinlikTipAdi ?? widget.etkinlik1.etkinlikTipAdi),
+              Text(_con.etkinlik2.etkinlikId.toString() ?? widget.etkinlik1.toString()),
+              Text(_con.etkinlik2.etkinlikPuani.toString() ?? widget.etkinlik1.etkinlikPuani.toString()),
               SizedBox(height: 25),
 
             ],

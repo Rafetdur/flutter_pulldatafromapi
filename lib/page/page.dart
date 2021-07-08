@@ -72,7 +72,7 @@ _con.etkinlikler[index]
   Widget _buildEtkinlikCard(Etkinlik etkinlik) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PageDetail(etkinlik.etkinlikId.toString())));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PageDetail(etkinlik)));
       },
       child: Column (
         children: [

@@ -9,14 +9,14 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 class EtkinlikDetailController extends ControllerMVC {
   ApiManager apiManager = ApiManager();
 
-  Etkinlik etkinlik;
+  Etkinlik etkinlik2;
 
 
 
   void getEtkinlikInfoo(String TipID) async{
     final result = await apiManager.getEtkinlikbyTipID(TipID);
     setState(() {
-      etkinlik = result;
+      etkinlik2 = result;
     });
   }
 
