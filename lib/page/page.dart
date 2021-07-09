@@ -70,16 +70,24 @@ _con.etkinlikler[index]
   }
 
   Widget _buildEtkinlikCard(Etkinlik etkinlik) {
+    final id = etkinlik.etkinlikId.toString();
+    print('sayfa tip id ${etkinlik.etkinlikId}');
+    String tipAdi = etkinlik.etkinlikTipAdi;
+    if (tipAdi == null) {
+      tipAdi = etkinlik.etkinlikTipAdi;
+    } else if (_con.etkinlikler2[id].etkinlikTipAdi != null) {
+      tipAdi = _con.etkinlikler2[id].etkinlikTipAdi;
+    }
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PageDetail(etkinlik)));
+        _con.getEtkinlik(id);
       },
       child: Column (
         children: [
-          Image.network(etkinlik.etkinlikResmi),
-          Text('Etkinlik Puanı: ${etkinlik.etkinlikPuani}'),
-          Text('Etkinlik Adi: ${etkinlik.etkinlikTipAdi}'),
-          Text('Etkinlik ID: ${etkinlik.etkinlikId}'),
+          Image.network(etkinlik.etkinlikResmi ?? _con.etkinlikler2[id]?.etkinlikResmi),
+          Text('Etkinlik Puanı: ${etkinlik.etkinlikPuani ?? _con.etkinlikler2[id].etkinlikPuani}'),
+          Text('Etkinlik Adi: ${etkinlik.etkinlikTipAdi ?? _con.etkinlikler2[id]?.etkinlikTipAdi}'),
+          Text('Etkinlik ID: ${etkinlik.etkinlikId ?? _con.etkinlikler2[id].etkinlikId}'),
 
         ],
       ),

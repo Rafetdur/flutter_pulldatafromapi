@@ -10,6 +10,7 @@ class EtkinlikController extends ControllerMVC {
   ApiManager apiManager = ApiManager();
 
   List<Etkinlik> etkinlikler;
+  Map<String, Etkinlik> etkinlikler2 = {};
 
 
 
@@ -17,6 +18,14 @@ class EtkinlikController extends ControllerMVC {
     final result = await apiManager.getEtkinlikler('1');
     setState(() {
       etkinlikler = result;
+    });
+  }
+
+  void getEtkinlik(String TipID) async{
+    final result = await apiManager.getEtkinlikbyTipID(TipID);
+
+    setState(() {
+      etkinlikler2[TipID] = result;
     });
   }
 
